@@ -1,7 +1,12 @@
 import socket
+from mail_server import send_email
 
 # take the server name and port name
 host = 'local host'
+
+# mail variables
+sender_email   = "lachiwa-mail-server@example.com"
+receiver_email = "client@example.com"
 
 # create a socket at server side
 # using TCP / IP protocol
@@ -30,7 +35,10 @@ while True:
     print ('> Got connection from', addr )
     
     # Say hello
-    c.send('Gracias por conectarse a Lachiwa. Sientase segurx de contarnos sus secretos.'.encode()) 
+    msg = "Gracias por confiar en Lachiwa. Sientase segurx de contarnos sus secretos"
+    print("Sent: " + msg)
+    
+    c.send(msg.encode())
 
     # receive message string from
     # server, at a time 1024 B
@@ -38,14 +46,19 @@ while True:
     
     print("")
 
+    whole_msg = ""
+
     # repeat as long as message
     # string are not empty
     while msg:
         print('Received: ' + msg.decode())
+        whole_msg += msg.decode()
         msg = c.recv(1024)
- 
+    
+    send_email(sender_email, receiver_email, "Hemos recibido un secreto desde la IP " + str(addr[0]), whole_msg)
+
     # Close the connection with the client 
     c.close()   
     
     # Breaking once connection closed
-    # break
+    break
