@@ -18,6 +18,7 @@ print('Received: ' + s.recv(1024).decode())
 # encoding into binary string
 msg = "Mi secreto es que no me gusta la polenta"
 s.send(msg.encode())
+
 print("Sent: " + msg)
 
 # disconnect the client

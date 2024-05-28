@@ -5,7 +5,7 @@ from mail_server import send_email
 host = 'local host'
 
 # mail variables
-sender_email   = "lachiwa-mail-server@example.com"
+sender_email   = "mail-server@lachiwa.com"
 receiver_email = "client@example.com"
 
 # create a socket at server side
@@ -37,7 +37,7 @@ while True:
     # Say hello
     msg = "Gracias por confiar en Lachiwa. Sientase segurx de contarnos sus secretos"
     print("Sent: " + msg)
-    
+
     c.send(msg.encode())
 
     # receive message string from
@@ -46,7 +46,7 @@ while True:
     
     print("")
 
-    whole_msg = ""
+    whole_msg = "Se recibió un secreto desde la IP " + str(addr[0]) + ":\n"
 
     # repeat as long as message
     # string are not empty
@@ -54,7 +54,7 @@ while True:
         print('Received: ' + msg.decode())
         whole_msg += msg.decode()
         msg = c.recv(1024)
-    
+
     send_email(sender_email, receiver_email, "Hemos recibido un secreto desde la IP " + str(addr[0]), whole_msg)
 
     # Close the connection with the client 
