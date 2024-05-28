@@ -12,12 +12,11 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # number on local computer.
 s.connect(('127.0.0.1', port))
 
+print('Received: ' + s.recv(1024).decode())
+
 # send message to the client after 
 # encoding into binary string
-s.send(b"Este es un mensaje de prueba\n")
-
-msg = "Bye........"
-s.send(msg.encode())
+s.send(b"Mi secreto es que no me gusta la polenta.\n")
 
 # disconnect the client
 s.close()
