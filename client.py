@@ -14,9 +14,9 @@ s.connect(('127.0.0.1', port))
 
 # send message to the client after 
 # encoding into binary string
-s.send(b"HELLO, How are you ? Welcome to Akash hacking World\n")
-msg = "Bye.............."
+s.send(b"Este es un mensaje de prueba\n")
 
+msg = "Bye........"
 s.send(msg.encode())
 
 # disconnect the client
