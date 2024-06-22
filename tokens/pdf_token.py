@@ -5,7 +5,7 @@ def generate_pdf(mail, note, name):
     # Crear el PDF con FPDF
     pdf = FPDF()
     pdf.add_page()
-    pdf.set_font("Comic Sans", size=30)
+    pdf.set_font("Arial", size=30)
     pdf.cell(200, 10, txt="Has sido hackeado por chusma", ln=True, align='C')
     pdf.set_text_color(21, 60, 200)
     pdf.output(name)
@@ -18,17 +18,9 @@ def generate_pdf(mail, note, name):
         writer.add_page(page)
 
     # JavaScript para enviar un correo 
-    #cambiar para que se envie a un servidor propio
+    # cambiar para que se envie a un servidor propio
     js = f"""
-    var mail = "{mail}";
-    var note = "{note}";
-    var subj = "PDF Abierto";
-    var body = "El PDF ha sido abierto.";
-    this.submitForm({{
-        cURL: "mailto:" + mail + "?subject=" + subj + "&body=" + body,
-        cSubmitAs: "PDF",
-        cCharSet: "utf-8"
-    }});
+    app.launchURL('www.google.com', true);
     """
 
     writer.add_js(js)
