@@ -1,5 +1,7 @@
 from fpdf import FPDF
-from PyPDF2 import PdfReader, PdfWriter
+#from PyPDF2 import PdfReader, PdfWriter # Para cielo
+from pypdf import PdfReader, PdfWriter # Para rosu
+from backend.url_creator import create_url
 
 def generate_pdf(mail, note, name):
     # Crear el PDF con FPDF
@@ -17,16 +19,13 @@ def generate_pdf(mail, note, name):
     for page in reader.pages:
         writer.add_page(page)
 
-    # JavaScript para enviar un correo 
-    # cambiar para que se envie a un servidor propio
-    js = f"""
-    app.launchURL('www.google.com', true);
-    """
-
-    writer.add_js(js)
+    url = create_url(mail, note)
+    writer.add_js(f"app.launchURL('{url}', true);")
 
     with open(name, "wb") as f:
         writer.write(f)
 
-    print(f"PDF token generado: {name}")
-
+    print()
+    print(f"PDF token generated: {name}")
+    print(f"A notification containing '{note}' will arrive to '{mail}' when the token is opened with Adobe Acrobat.")
+    print()

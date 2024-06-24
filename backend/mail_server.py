@@ -21,4 +21,3 @@ def send_email(sender_email, receiver_email, subject, text):
         server.sendmail(sender_email, receiver_email, message.as_string())
     
     print('Sent')
-
