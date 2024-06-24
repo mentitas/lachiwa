@@ -1,4 +1,5 @@
 from cryptography.fernet import Fernet
+import re
 
 key_file = open("backend/key.txt", "r")
 key = key_file.read()
@@ -8,10 +9,11 @@ t = Fernet(key)
 
 def create_url(mail, note, name="", redirect=""):
 
-    # TODO: Chequear que redirect es un url válido
-    # redirect debe empezar con "http://" o "https://"
-    # y debe terminar con ".com" o similar
-    
+    # Regex que saqué de internet, quizás convenga buscar otro
+    valid_urls = re.compile('(https?|ftp|file)?://[a-z0-9+&@#/%?=~_|!:,.;]+.[a-z+&@#/%=~_|]', re.IGNORECASE)   
+    if not valid_urls.match(redirect):
+        redirect = ""
+
     enc_data = t.encrypt(bytes(mail + "#" + note + "#" + redirect, "utf-8"))    
     enc_data = str(enc_data)[2:-1]
 

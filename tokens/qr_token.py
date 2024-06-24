@@ -11,4 +11,5 @@ def generate_qr(mail, note, name, redirect):
     print()
     print(f"QR token generated: {name}.png")
     print(f"A notification containing '{note}' will arrive to '{mail}' when the QR is opened, and then it will redirect to {redirect}")
+    print(f"If {redirect} isn't a valid url, it will redirect to a dummy page")
     print()
