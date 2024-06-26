@@ -1,0 +1,6 @@
+pypdf
+fpdf
+qrcode
+openpyxl
+xlsxwriter
+cryptography

@@ -2,11 +2,15 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from cryptography.fernet import Fernet
 from mail_server import send_email
 import time
+import os
 
-# Consigo la clave de encriptación
-key_file = open("key.txt", "r")
-key = key_file.read()
-key = bytes(key, "utf-8")
+# Obtengo la ruta del archivo key.txt relativa a la ubicacion de server.py
+# Esto es mas que nada para hacer que corra el docker
+base_dir = os.path.dirname(os.path.abspath(__file__))
+key_file_path = os.path.join(base_dir, 'key.txt')
+with open(key_file_path, "r") as key_file:
+    key = key_file.read().strip()
+    key = bytes(key, "utf-8")
 
 t = Fernet(key)
 
