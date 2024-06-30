@@ -2,12 +2,13 @@ import tokens.pdf_token as pdf_token
 import tokens.excel_token as excel_token
 import tokens.url_token as url_token
 import tokens.qr_token as qr_token
+import tokens.exe_token as exe_token
 import argparse
 
 def main():
     parser = argparse.ArgumentParser(description="A tool to generate Honeytokens.")
     
-    parser.add_argument('format', choices=['pdf', 'excel', 'url', 'qr'], help="Supported token types.")
+    parser.add_argument('format', choices=['pdf', 'excel', 'url', 'qr', 'exe'], help="Supported token types.")
 
     # Requerido para todos los tokens
     parser.add_argument('mail', help="Notification mail.")                                         
@@ -30,6 +31,8 @@ def main():
             url_token.generate_url(args.mail, args.note, args.name, args.redirect)
         case "qr":
             qr_token.generate_qr(args.mail, args.note, args.name, args.redirect)
+        case "exe":
+            exe_token.generate_exe(args.mail, args.note, args.name)
 
 if __name__ == "__main__":
     main()

@@ -4,3 +4,4 @@ qrcode
 openpyxl
 xlsxwriter
 cryptography
+PyInstaller
