@@ -4,38 +4,30 @@ import shutil
 import subprocess
 from backend.url_creator import create_url
 
-def generate_exe(mail, note, name):
+def generate_exe(mail, note, name, redirect):
     
-    url = create_url(mail,note)
+    url = create_url(mail,note,redirect)
     
-    os.makedirs("./temp_folder")
-    os.chdir("./temp_folder")
+    current_dir = os.getcwd()
+    os.makedirs("/tmp/lachiwa")
+    os.chdir("/tmp/lachiwa")
 
-#     
-#     script = f"""
-# import webbrowser
-# webbrowser.open('{url}')
-#     """
+    script = f"""
+import webbrowser
+webbrowser.open('{url}')
+"""
     
-    script = f"""print("hola")"""
-    nombre_archivo = name + ".py"
-
     # Abrir el archivo en modo escritura y guardar el contenido
-    with open(nombre_archivo, "w") as archivo:
+    with open("file.py", "w") as archivo:
         archivo.write(script)
+    
+    DEVNULL = subprocess.DEVNULL
+    output=subprocess.check_output(f"pyinstaller --onefile file.py",shell=True, stderr = DEVNULL , stdin = DEVNULL )
 
-    # subprocess.run(["pyinstaller", nombre_archivo, "--onefile", "--windowed", "--distpath", "dist", "--workpath", "build", "--specpath", "build"], capture_output=False)  
-    PyInstaller.__main__.run([
-        nombre_archivo,
-        '--onefile',
-        '--windowed',
-        '--distpath', 'dist', 
-        '--workpath', 'build',
-        '--specpath', 'build'
-    ])
+    os.rename("./tmp/lachiwa/dist/file", f".{current_dir}/{name}")
+    shutil.rmtree("/tmp/lachiwa")
 
-    os.chdir("..")
-    os.rename(f"temp_folder/dist/{name}", f"{name}")
-    shutil.rmtree("./temp_folder")
-
-    # Agarramos el ejecutable de la carpeta "dist" y lo movemos fuera de la carpeta actual
+    print()
+    print(f"EXE token generated: {name}")
+    print(f"A notification containing '{note}' will arrive to '{mail}' when the token is opened.")
+    print()

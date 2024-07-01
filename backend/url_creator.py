@@ -14,7 +14,7 @@ def create_url(mail, note, name="", redirect=""):
     if not valid_urls.match(redirect):
         redirect = ""
 
-    enc_data = t.encrypt(bytes(mail + "#" + note + "#" + redirect, "utf-8"))    
+    enc_data = t.encrypt(bytes(mail + "@@@" + note + "@@@" + redirect, "utf-8"))    
     enc_data = str(enc_data)[2:-1]
 
     # Si le agregás cosas en el medio, las ignora!
@@ -24,4 +24,3 @@ def create_url(mail, note, name="", redirect=""):
         return "http://0.0.0.0:8080/" + enc_data              # TODO: Cambiar la IP por la IP pública
     else:
         return "http://0.0.0.0:8080/" + name + "/" + enc_data # TODO: Cambiar la IP por la IP pública
-

@@ -37,9 +37,7 @@ class MyServer(BaseHTTPRequestHandler):
             dec_request = str(t.decrypt(enc_request)) # Esto puede generar una excepción, porque la request puede ser inválida
             dec_request = str(dec_request)[2:-1]
 
-            print(dec_request)
-
-            mail, note, redirect = dec_request.split("#")
+            mail, note, redirect = dec_request.split("@@@")
             ip = self.client_address[0]
 
             print("")
