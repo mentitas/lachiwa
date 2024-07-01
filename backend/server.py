@@ -1,8 +1,7 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from cryptography.hazmat.primitives.serialization import load_pem_private_key
-from cryptography.hazmat.primitives.serialization import load_pem_public_key
 from cryptography.hazmat.backends import default_backend
-from cryptogra import encrypt, decrypt
+from cryptogra import decrypt
 
 from mail_sender import send_email
 import time
