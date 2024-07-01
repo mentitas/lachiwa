@@ -23,16 +23,14 @@ def main():
 
     args = parser.parse_args()
     
-    # Todo: cambiar a ifs
-    match args.format:
-        case "pdf":
-            pdf_token.generate_pdf(args.mail, args.note, args.name + ".pdf", args.redirect)
-        case "url":
-            url_token.generate_url(args.mail, args.note, args.name, args.redirect)
-        case "exe":
-            exe_token.generate_exe(args.mail, args.note, args.name, args.redirect)
-        case "qr":
-            qr_token.generate_qr(args.mail, args.note, args.name, args.redirect)
+    if args.format == "pdf":
+        pdf_token.generate_pdf(args.mail, args.note, args.name + ".pdf", args.redirect)
+    elif args.format == "url":
+        url_token.generate_url(args.mail, args.note, args.name, args.redirect)
+    elif args.format == "exe":
+        exe_token.generate_exe(args.mail, args.note, args.name, args.redirect)
+    elif args.format == "qr":
+        qr_token.generate_qr(args.mail, args.note, args.name, args.redirect)
 
 if __name__ == "__main__":
     main()
