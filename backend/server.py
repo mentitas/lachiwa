@@ -12,13 +12,6 @@ with open("priv-key.pem", 'rb') as pem_in:
     pemlines = pem_in.read()
     private_key = load_pem_private_key(pemlines, None, default_backend())
 
-key_file = open("pub-key.pem", "r")
-public_pem = key_file.read()
-public_pem = bytes(public_pem, "utf-8")
-
-# Obtenemos la clave pública
-public_key = load_pem_public_key(public_pem)
-
 hostName   = "0.0.0.0"
 serverPort = 8080
 
