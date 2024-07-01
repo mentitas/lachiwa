@@ -1,11 +1,14 @@
-from cryptography.fernet import Fernet
 import re
+from cryptography.hazmat.primitives.serialization import load_pem_public_key
+from backend.cryptogra import encrypt
 
-key_file = open("backend/key.txt", "r")
-key = key_file.read()
-key = bytes(key, "utf-8")
+# Cargamos la pem pública de un archivo
+key_file = open("backend/pub-key.pem", "r")
+public_pem = key_file.read()
+public_pem = bytes(public_pem, "utf-8")
 
-t = Fernet(key)
+# Obtenemos la clave pública
+public_key = load_pem_public_key(public_pem)
 
 def create_url(mail, note, name="", redirect=""):
 
@@ -14,8 +17,8 @@ def create_url(mail, note, name="", redirect=""):
     if not valid_urls.match(redirect):
         redirect = ""
 
-    enc_data = t.encrypt(bytes(mail + "@@@" + note + "@@@" + redirect, "utf-8"))    
-    enc_data = str(enc_data)[2:-1]
+    message  = str(mail + "@@@" + note + "@@@" + redirect)
+    enc_data = encrypt(message, public_key)
 
     # Si le agregás cosas en el medio, las ignora!
     # http://0.0.0.0:8080/enc_data es equivalente a http://0.0.0.0:8080/basura/enc_data

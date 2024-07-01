@@ -1,18 +1,23 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from cryptography.fernet import Fernet
+from cryptography.hazmat.primitives.serialization import load_pem_private_key
+from cryptography.hazmat.primitives.serialization import load_pem_public_key
+from cryptography.hazmat.backends import default_backend
+from cryptogra import encrypt, decrypt
+
 from mail_sender import send_email
 import time
 import os
 
-# Obtengo la ruta del archivo key.txt relativa a la ubicacion de server.py
-# Esto es mas que nada para hacer que corra el docker
-base_dir = os.path.dirname(os.path.abspath(__file__))
-key_file_path = os.path.join(base_dir, 'key.txt')
-with open(key_file_path, "r") as key_file:
-    key = key_file.read().strip()
-    key = bytes(key, "utf-8")
+with open("priv-key.pem", 'rb') as pem_in:
+    pemlines = pem_in.read()
+    private_key = load_pem_private_key(pemlines, None, default_backend())
 
-t = Fernet(key)
+key_file = open("pub-key.pem", "r")
+public_pem = key_file.read()
+public_pem = bytes(public_pem, "utf-8")
+
+# Obtenemos la clave pública
+public_key = load_pem_public_key(public_pem)
 
 hostName   = "0.0.0.0"
 serverPort = 8080
@@ -29,14 +34,11 @@ class MyServer(BaseHTTPRequestHandler):
         for p in path:
             if p != "":
                 enc_request = p
-
-        enc_request = bytes(enc_request, "utf-8")
-
+        
         try:
             # La desencripto y la formateo adecuadamente
-            dec_request = str(t.decrypt(enc_request)) # Esto puede generar una excepción, porque la request puede ser inválida
-            dec_request = str(dec_request)[2:-1]
-
+            dec_request = decrypt(enc_request, private_key)
+            
             mail, note, redirect = dec_request.split("@@@")
             ip = self.client_address[0]
 

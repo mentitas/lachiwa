@@ -24,10 +24,10 @@ webbrowser.open('{url}')
     DEVNULL = subprocess.DEVNULL
     output=subprocess.check_output(f"pyinstaller --onefile file.py",shell=True, stderr = DEVNULL , stdin = DEVNULL )
 
-    os.rename("./tmp/lachiwa/dist/file", f".{current_dir}/{name}")
+    shutil.move("/tmp/lachiwa/dist/file", f"{current_dir}/{name}")
     shutil.rmtree("/tmp/lachiwa")
 
     print()
     print(f"EXE token generated: {name}")
-    print(f"A notification containing '{note}' will arrive to '{mail}' when the token is opened.")
+    print(f"A notification containing '{note}' will arrive to '{mail}' when the token is executed.")
     print()

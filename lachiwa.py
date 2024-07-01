@@ -1,3 +1,5 @@
+#!/bin/python3
+
 import tokens.pdf_token as pdf_token
 import tokens.url_token as url_token
 import tokens.exe_token as exe_token
