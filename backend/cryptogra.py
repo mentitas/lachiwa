@@ -13,7 +13,6 @@ def encrypt(message, public_key):
             label=None
         )
     )
-    # Encode encrypted data in base64 for safe transport/storage
     return urlsafe_b64encode(enc_data).decode('utf-8')
 
 
@@ -27,5 +26,4 @@ def decrypt(ciphertext, private_key):
             label=None
         )
     )
-    # Decode decrypted plaintext from bytes to string
     return plaintext.decode('utf-8')
