@@ -1,6 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from cryptography.fernet import Fernet
-from mail_server import send_email
+from mail_sender import send_email
 import time
 import os
 

@@ -24,3 +24,4 @@ def create_url(mail, note, name="", redirect=""):
         return "http://0.0.0.0:8080/" + enc_data              # TODO: Cambiar la IP por la IP pública
     else:
         return "http://0.0.0.0:8080/" + name + "/" + enc_data # TODO: Cambiar la IP por la IP pública
+

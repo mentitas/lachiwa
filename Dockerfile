@@ -7,10 +7,10 @@ COPY requirements.txt /lachiwa/requirements.txt
 RUN pip install --no-cache-dir -r /lachiwa/requirements.txt
 
 # Copia todo el código fuente del proyecto al contenedor
-COPY . /lachiwa
+COPY . /TP
 
 # Expone el puerto en el que el servidor funciona
 EXPOSE 8000
 
 # Comando para ejecutar el servidor por defecto
-CMD ["python", "backend/server.py"]
+CMD ["python3", "./backend/server.py"]
