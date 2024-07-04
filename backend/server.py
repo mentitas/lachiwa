@@ -1,8 +1,8 @@
-from http.server import BaseHTTPRequestHandler, HTTPServer
 from cryptography.hazmat.primitives.serialization import load_pem_private_key
 from cryptography.hazmat.backends import default_backend
 from cryptogra import decrypt
 
+from http.server import BaseHTTPRequestHandler, HTTPServer
 from mail_sender import send_email
 import time
 import os
@@ -11,7 +11,7 @@ with open("priv-key.pem", 'rb') as pem_in:
     pemlines = pem_in.read()
     private_key = load_pem_private_key(pemlines, None, default_backend())
 
-hostName   = "0.0.0.0"
+hostName   = "0.0.0.0" # TODO: Pasar la dirección como parámetro
 serverPort = 8080
 
 class MyServer(BaseHTTPRequestHandler):
