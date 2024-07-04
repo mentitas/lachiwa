@@ -2,7 +2,7 @@ from fpdf import FPDF
 #from PyPDF2 import PdfReader, PdfWriter # Para cielo
 from pypdf import PdfReader, PdfWriter # Para rosu
 from backend.url_creator import create_url
-from backend.colors import colors
+from backend.colors import cyan, blue
 
 def generate_pdf(mail, note, name, redirect):
     # Crear el PDF con FPDF
@@ -29,10 +29,10 @@ def generate_pdf(mail, note, name, redirect):
     with open(name, "wb") as f:
         writer.write(f)
 
-    note     = colors.OKCYAN + note     + colors.ENDC
-    mail     = colors.OKCYAN + mail     + colors.ENDC
-    redirect = colors.OKCYAN + redirect + colors.ENDC
-    name     = colors.OKBLUE + name     + colors.ENDC
+    note     = cyan(note)
+    mail     = cyan(mail)
+    redirect = cyan(redirect)
+    name     = blue(name)
     
     print()
     print(f"PDF token generated: {name}")

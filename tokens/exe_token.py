@@ -3,7 +3,7 @@ import os
 import shutil
 import subprocess
 from backend.url_creator import create_url
-from backend.colors import colors
+from backend.colors import cyan, blue
 
 def generate_exe(mail, note, name, redirect):
     
@@ -28,10 +28,10 @@ webbrowser.open('{url}')
     shutil.move("/tmp/lachiwa/dist/file", f"{current_dir}/{name}")
     shutil.rmtree("/tmp/lachiwa")
 
-    note     = colors.OKCYAN + note     + colors.ENDC
-    mail     = colors.OKCYAN + mail     + colors.ENDC
-    redirect = colors.OKCYAN + redirect + colors.ENDC
-    name     = colors.OKBLUE + name     + colors.ENDC
+    note     = cyan(note)
+    mail     = cyan(mail)
+    redirect = cyan(redirect)
+    name     = blue(name)
 
     print()
     print(f"EXE token generated: {name}")

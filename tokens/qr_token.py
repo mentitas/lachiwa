@@ -1,5 +1,5 @@
 from backend.url_creator import create_url
-from backend.colors import colors
+from backend.colors import cyan, blue
 import qrcode
 
 def generate_qr(mail, note, name, redirect):
@@ -8,10 +8,10 @@ def generate_qr(mail, note, name, redirect):
     img = qrcode.make(create_url(mail, note, name, redirect))
     img.save(f"{name}.png")
 
-    note     = colors.OKCYAN + note          + colors.ENDC
-    mail     = colors.OKCYAN + mail          + colors.ENDC
-    redirect = colors.OKCYAN + redirect      + colors.ENDC
-    name     = colors.OKBLUE + name + ".png" + colors.ENDC
+    note     = cyan(note)
+    mail     = cyan(mail)
+    redirect = cyan(redirect)
+    name     = blue(name + ".png")
 
     print()
     print(f"QR token generated: {name}")

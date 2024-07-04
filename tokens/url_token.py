@@ -1,18 +1,18 @@
 from backend.url_creator import create_url
-from backend.colors import colors
+from backend.colors import cyan, blue
 
 def generate_url(mail, note, name, redirect):
 
-    url = colors.OKBLUE + create_url(mail, note, name, redirect) + colors.ENDC
+    url = blue(create_url(mail, note, name, redirect))
 
     print()
     print(f"URL token generated: {url}")
     print()
 
-    note     = colors.OKCYAN + note     + colors.ENDC
-    mail     = colors.OKCYAN + mail     + colors.ENDC
-    redirect = colors.OKCYAN + redirect + colors.ENDC
-    name     = colors.OKCYAN + name     + colors.ENDC
+    note     = cyan(note)
+    mail     = cyan(mail)
+    redirect = cyan(redirect)
+    name     = cyan(name)
     
     print(f"A notification containing '{note}' will arrive to '{mail}' when the URL is opened, and then it will redirect to {redirect}")
     print(f"If {redirect} isn't a valid url, it will redirect to a dummy page")
