@@ -5,6 +5,7 @@ import tokens.pdf_token as pdf_token
 import tokens.url_token as url_token
 import tokens.exe_token as exe_token
 import tokens.qr_token  as qr_token
+import tokens.ini_token as ini_token
 import argparse
 
 lachiwa = r"""     __      __    ___  _   _  ____  _    _    __   
@@ -53,7 +54,7 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         description=header(elegantlachiwa))
     
-    parser.add_argument('format', choices=['pdf', 'url', 'qr', 'exe'], help = cyan("Supported token types."))
+    parser.add_argument('format', choices=['pdf', 'url', 'qr', 'exe', 'ini'], help="Supported token types.")
 
     # Requerido para todos los tokens
     parser.add_argument('mail', help = cyan("Notification mail."))                                         
@@ -75,6 +76,9 @@ def main():
         exe_token.generate_exe(args.mail, args.note, args.name, args.redirect)
     elif args.format == "qr":
         qr_token.generate_qr(args.mail, args.note, args.name, args.redirect)
+    elif args.format == "ini":
+        ini_token.generate_ini(args.mail, args.note, args.redirect, args.name)
+
 
 if __name__ == "__main__":
     main()
