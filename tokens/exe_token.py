@@ -33,7 +33,4 @@ webbrowser.open('{url}')
     redirect = cyan(redirect)
     name     = blue(name)
 
-    print()
-    print(f"EXE token generated: {name}")
-    print(f"A notification containing '{note}' will arrive to '{mail}' when the token is executed.")
-    print()
+    print(f"\nEXE token generated: {name}\n")

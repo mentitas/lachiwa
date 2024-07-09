@@ -20,3 +20,6 @@ def green(string):
 
 def header(string):
     return colors.HEADER + string + colors.ENDC
+
+def yellow(string):
+    return colors.WARNING + string + colors.ENDC

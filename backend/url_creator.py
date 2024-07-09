@@ -1,4 +1,3 @@
-import re
 from cryptography.hazmat.primitives.serialization import load_pem_public_key
 from backend.cryptogra import encrypt
 
@@ -11,11 +10,6 @@ public_pem = bytes(public_pem, "utf-8")
 public_key = load_pem_public_key(public_pem)
 
 def create_url(mail, note, name="", redirect=""):
-
-    # Regex que saqué de internet, quizás convenga buscar otro
-    valid_urls = re.compile('(https?|ftp|file)?://[a-z0-9+&@#/%?=~_|!:,.;]+.[a-z+&@#/%=~_|]', re.IGNORECASE)   
-    if not valid_urls.match(redirect):
-        redirect = ""
 
     message  = str(mail + "@@@" + note + "@@@" + redirect)
     enc_data = encrypt(message, public_key)

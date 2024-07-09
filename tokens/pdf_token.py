@@ -34,7 +34,4 @@ def generate_pdf(mail, note, name, redirect):
     redirect = cyan(redirect)
     name     = blue(name)
     
-    print()
-    print(f"PDF token generated: {name}")
-    print(f"A notification containing '{note}' will arrive to '{mail}' when the token is opened with Adobe Acrobat.")
-    print()
+    print(f"\nPDF token generated: {name}\n")
