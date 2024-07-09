@@ -40,7 +40,7 @@ def main():
     # Regex que saqué de internet, quizás convenga buscar otro
     valid_urls = re.compile('(https?|ftp|file)?://[a-z0-9+&@#/%?=~_|!:,.;]+.[a-z+&@#/%=~_|]', re.IGNORECASE)   
     if not valid_urls.match(args.redirect) and args.redirect != "":
-        print(f"{yellow("Warning")}: redirect url isn't valid.")
+        print(f"{yellow('Warning')}: redirect url isn't valid.")
         args.redirect = ""
 
     if args.format == "pdf":
@@ -78,7 +78,7 @@ def main():
 
     if args.redirect == "":
         print("a dummy page.")
-        print(f"You can specify where to redirect with -r {cyan("<valid url>")}.\n")
+        print(f"You can specify where to redirect with -r {cyan('<valid url>')}.\n")
     else:
         print(f"{cyan(args.redirect)}.\n")
 
