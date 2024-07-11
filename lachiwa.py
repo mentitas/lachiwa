@@ -35,6 +35,8 @@ def main():
     parser.add_argument('-redirect', help=blue("URL to redirect."), default="")  
 
     args = parser.parse_args()
+    
+    format_arg = args.format
 
     # Chequeamos que redirect es un url válido
     # Regex que saqué de internet, quizás convenga buscar otro
@@ -43,15 +45,15 @@ def main():
         print(f"{yellow('Warning')}: redirect url isn't valid.")
         args.redirect = ""
 
-    if args.format == "pdf":
+    if format_arg == "pdf":
         pdf_token.generate_pdf(args.mail, args.note, args.name + ".pdf", args.redirect)
-    elif args.format == "url":
+    elif format_arg == "url":
         url_token.generate_url(args.mail, args.note, args.name, args.redirect)    
-    elif args.format == "exe":
+    elif format_arg == "exe":
         exe_token.generate_exe(args.mail, args.note, args.name, args.redirect)    
-    elif args.format == "qr":
+    elif format_arg == "qr":
         qr_token.generate_qr(args.mail, args.note, args.name, args.redirect)    
-    elif args.format == "ini":
+    elif format_arg == "ini":
         ini_token.generate_ini(args.mail, args.note, args.redirect, args.name)
 
     ### Printeamos los resultados
@@ -63,13 +65,13 @@ def main():
     
     print(f"A notification containing '{note}' will arrive to '{mail}'", end= ' ')
 
-    if format == "pdf":
+    if format_arg == "pdf":
         print(f"when the token is opened with Adobe Acrobat,", end= ' ')
-    elif format == "url":
+    elif format_arg == "url":
         print(f"when the URL is opened,", end= ' ')    
-    elif format == "exe":
+    elif format_arg == "exe":
         print(f"when the token is executed,", end= ' ')    
-    elif format == "qr":
+    elif format_arg == "qr":
         print(f"when the QR is opened,", end= ' ')    
     else:
         print(f"when the folder containing the token is opened,", end= ' ')
