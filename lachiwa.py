@@ -22,17 +22,17 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         description=header(lachiwa_banner))
     
-    parser.add_argument('format', choices=['pdf', 'url', 'qr', 'exe', 'ini'], help=cyan("Supported token types."))
+    parser.add_argument('format', choices=['pdf', 'url', 'qr', 'exe', 'ini'], help=cyan("Specify the type of honey token to generate. Choices: 'pdf', 'url', 'qr', 'exe', 'ini'."))
 
     # Requerido para todos los tokens
-    parser.add_argument('mail', help = cyan("Notification mail."))                                         
-    parser.add_argument('note', help = cyan("Notification note."))
+    parser.add_argument('mail', help = cyan("The email address where the notification will be sent when the token is accessed."))                                         
+    parser.add_argument('note', help = cyan("A note to include in the notification email, i.e. a description of the type of token triggered"))
 
     # Opcional para todos los tokens
-    parser.add_argument('-name', help=blue("Optional token file name. Default=token."), default="token")
+    parser.add_argument('-name', help=blue("Optional: specify the file name for the token. Default is 'token'."), default="token")
 
     # Usado únicamente por url token 
-    parser.add_argument('-redirect', help=blue("URL to redirect."), default="")  
+    parser.add_argument('-redirect', help=blue("Optional: specify a URL to redirect to when the token is accessed. Default is an empty string, which redirects to a dummy page."), default="")  
 
     args = parser.parse_args()
     
@@ -73,7 +73,7 @@ def main():
         print(f"when the token is executed,", end= ' ')    
     elif format == "qr":
         print(f"when the QR is opened,", end= ' ')    
-    else:
+    elif format == "ini":
         print(f"when the folder containing the token is opened,", end= ' ')
 
     print("and then it will redirect to", end= ' ')
