@@ -25,7 +25,7 @@ def valid_input(text):
     # Uso bleach para reemplazar los caracteres especiales por otros
     sanitized_text = bleach.clean(sanitized_text)
     return sanitized_text
-
+    
 def valid_url(url):
     # Chequeamos que redirect es un url válido
     valid_urls = re.compile('(https?|ftp|file)?://[a-z0-9+&@#/%?=~_|!:,.;]+.[a-z+&@#/%=~_|]', re.IGNORECASE)   
@@ -46,10 +46,6 @@ def main():
     # Opcional para todos los tokens
     parser.add_argument('-name',                     help=blue("Optional: specify the file name for the token. Default is 'token'."), default="token")
     parser.add_argument('-redirect', type=valid_url, help=blue("Optional: specify a URL to redirect to when the token is accessed. Default is an empty string, which redirects to a dummy page."), default="")  
-
-    parser.add_argument('-h', '--help', action='help', default=argparse.SUPPRESS, help='Show this help message and exit.')
-    #_HelpAction(option_strings=['-h', '--help'], dest='help', nargs=0, const=None, default='==SUPPRESS==', type=None, choices=None, help='Show this help message and exit.', metavar=None)
-
 
     args = parser.parse_args()
     
