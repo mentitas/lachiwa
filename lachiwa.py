@@ -8,6 +8,7 @@ import tokens.qr_token  as qr_token
 import tokens.ini_token as ini_token
 import argparse
 import re
+import bleach
 
 lachiwa_banner = r"""       __            _     _               
       / /  __ _  ___| |__ (_)_      ____ _ 
@@ -16,34 +17,43 @@ lachiwa_banner = r"""       __            _     _
     \____/\__,_|\___|_| |_|_| \_/\_/ \__,_|
     A tool to create Honey Tokens."""
 
+def valid_input(text):
+    if "@@@" in text:
+        raise argparse.ArgumentTypeError(yellow("Input can't contain '@@@'"))
+    # Uso un regex para quitar código html del tipo "<script> ... </script>"
+    sanitized_text = re.sub(r'<script\b[^>]*>(.*?)</script>', '', text, flags=re.IGNORECASE)
+    # Uso bleach para reemplazar los caracteres especiales por otros
+    sanitized_text = bleach.clean(sanitized_text)
+    return sanitized_text
+
+def valid_url(url):
+    # Chequeamos que redirect es un url válido
+    valid_urls = re.compile('(https?|ftp|file)?://[a-z0-9+&@#/%?=~_|!:,.;]+.[a-z+&@#/%=~_|]', re.IGNORECASE)   
+    if not valid_urls.match(url) and url != "":
+        raise argparse.ArgumentTypeError(yellow(f"'{url}' isn't a valid url"))
+    return url
+
 def main():
     
-    parser = argparse.ArgumentParser(
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        description=header(lachiwa_banner))
+    parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description=header(lachiwa_banner))
     
     parser.add_argument('format', choices=['pdf', 'url', 'qr', 'exe', 'ini'], help=cyan("Specify the type of honey token to generate. Choices: 'pdf', 'url', 'qr', 'exe', 'ini'."))
 
     # Requerido para todos los tokens
-    parser.add_argument('mail', help = cyan("The email address where the notification will be sent when the token is accessed."))                                         
-    parser.add_argument('note', help = cyan("A note to include in the notification email, i.e. a description of the type of token triggered"))
+    parser.add_argument('mail', type=valid_input, help = cyan("The email address where the notification will be sent when the token is accessed."))                                         
+    parser.add_argument('note', type=valid_input, help = cyan("A note to include in the notification email, i.e. a description of the type of token triggered"))
 
     # Opcional para todos los tokens
-    parser.add_argument('-name', help=blue("Optional: specify the file name for the token. Default is 'token'."), default="token")
+    parser.add_argument('-name',                     help=blue("Optional: specify the file name for the token. Default is 'token'."), default="token")
+    parser.add_argument('-redirect', type=valid_url, help=blue("Optional: specify a URL to redirect to when the token is accessed. Default is an empty string, which redirects to a dummy page."), default="")  
 
-    # Usado únicamente por url token 
-    parser.add_argument('-redirect', help=blue("Optional: specify a URL to redirect to when the token is accessed. Default is an empty string, which redirects to a dummy page."), default="")  
+    parser.add_argument('-h', '--help', action='help', default=argparse.SUPPRESS, help='Show this help message and exit.')
+    #_HelpAction(option_strings=['-h', '--help'], dest='help', nargs=0, const=None, default='==SUPPRESS==', type=None, choices=None, help='Show this help message and exit.', metavar=None)
+
 
     args = parser.parse_args()
     
     format = args.format # save the "format" argument to use in following 
-
-    # Chequeamos que redirect es un url válido
-    # Regex que saqué de internet, quizás convenga buscar otro
-    valid_urls = re.compile('(https?|ftp|file)?://[a-z0-9+&@#/%?=~_|!:,.;]+.[a-z+&@#/%=~_|]', re.IGNORECASE)   
-    if not valid_urls.match(args.redirect) and args.redirect != "":
-        print(f"{yellow('Warning')}: redirect url isn't valid.")
-        args.redirect = ""
 
     if format == "pdf":
         pdf_token.generate_pdf(args.mail, args.note, args.name + ".pdf", args.redirect)
