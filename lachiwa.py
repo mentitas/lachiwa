@@ -1,5 +1,3 @@
-#!/bin/python3
-
 from backend.colors import blue, cyan, header, yellow
 import tokens.pdf_token as pdf_token
 import tokens.url_token as url_token
@@ -10,7 +8,7 @@ import argparse
 import re
 import bleach
 
-lachiwa_banner = r"""       __            _     _               
+lachiwa_banner = r"""__            _     _               
       / /  __ _  ___| |__ (_)_      ____ _ 
      / /  / _` |/ __| '_ \| \ \ /\ / / _` |
     / /__| (_| | (__| | | | |\ V  V / (_| |
@@ -27,7 +25,6 @@ def valid_input(text):
     return sanitized_text
     
 def valid_url(url):
-    # Chequeamos que redirect es un url válido
     valid_urls = re.compile('(https?|ftp|file)?://[a-z0-9+&@#/%?=~_|!:,.;]+.[a-z+&@#/%=~_|]', re.IGNORECASE)   
     if not valid_urls.match(url) and url != "":
         raise argparse.ArgumentTypeError(yellow(f"'{url}' isn't a valid url"))

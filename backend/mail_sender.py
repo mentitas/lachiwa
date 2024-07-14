@@ -1,6 +1,8 @@
 import smtplib
 from email.mime.text import MIMEText
 
+### Este archivo invoca a smtplib y define la funcion que envía mails
+
 # Configuration
 port = 2525
 smtp_server = "sandbox.smtp.mailtrap.io"

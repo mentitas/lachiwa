@@ -1,6 +1,5 @@
 from fpdf import FPDF
-#from PyPDF2 import PdfReader, PdfWriter # Para cielo
-from pypdf import PdfReader, PdfWriter # Para rosu
+from pypdf import PdfReader, PdfWriter
 from backend.url_creator import create_url
 from backend.colors import cyan, blue
 

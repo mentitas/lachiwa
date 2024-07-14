@@ -1,6 +1,8 @@
 from cryptography.hazmat.primitives.serialization import load_pem_public_key
 from backend.cryptogra import encrypt
 
+### Este archivo define la función create_url
+
 # Cargamos la pem pública de un archivo
 key_file = open("backend/pub-key.pem", "r")
 public_pem = key_file.read()
@@ -18,6 +20,6 @@ def create_url(mail, note, name="", redirect=""):
     # http://0.0.0.0:8080/enc_data es equivalente a http://0.0.0.0:8080/basura/enc_data
 
     if name == "":
-        return "http://0.0.0.0:8080/" + enc_data              # TODO: Cambiar la IP por la IP pública
+        return "http://0.0.0.0:8080/" + enc_data
     else:
-        return "http://0.0.0.0:8080/" + name + "/" + enc_data # TODO: Cambiar la IP por la IP pública
+        return "http://0.0.0.0:8080/" + name + "/" + enc_data

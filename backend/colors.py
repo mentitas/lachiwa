@@ -1,3 +1,5 @@
+### Este archivo define las funciones para printear con colores en la terminal
+
 class colors:
     HEADER    = '\033[95m'
     BLUE      = '\033[94m'

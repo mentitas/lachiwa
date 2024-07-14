@@ -3,3 +3,4 @@ fpdf
 qrcode
 cryptography
 PyInstaller
+bleach

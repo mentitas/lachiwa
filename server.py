@@ -2,7 +2,6 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from cryptography.hazmat.primitives.serialization import load_pem_private_key
 from cryptography.hazmat.backends import default_backend
 from backend.cryptogra import decrypt
-
 from backend.colors import header, green, yellow
 from backend.mail_sender import send_email
 import time
@@ -21,11 +20,7 @@ class MyServer(BaseHTTPRequestHandler):
         
         # Recibo la request encriptada y la separo según "/"
         path = self.path.split("/")
-
-        # - Forma elegante: (BUG: con un mismo path válido, responde token vaĺido y token inválido a la vez)
-        # enc_request = path[-1] if path[-1] else path[-2]
         
-        # - Forma no elegante:
         enc_request = ""
         # La request encriptada es el último dato no nulo del path
         for p in path:
@@ -36,7 +31,6 @@ class MyServer(BaseHTTPRequestHandler):
             dec_request = decrypt(enc_request, private_key)
             mail, note, redirect = dec_request.split("@@@")
             ip = self.client_address[0]
-
             print(yellow(f"\nYou are connecting from {ip}"))
             print(yellow(f"We'll send a mail to {mail}"))
             print(yellow(f"saying {note}\n"))
@@ -55,7 +49,7 @@ class MyServer(BaseHTTPRequestHandler):
                 self.end_headers()
 
             # Descomentar la siguiente linea para que se mande un mail cuando se accede a la url
-            # send_email("mail-server@lachiwa.com", mail, "Han accedido tu honey token desde la IP " + ip, note)
+            send_email("mail-server@lachiwa.com", mail, "Han accedido tu honey token desde la IP " + ip, note)
 
         except:
             self.send_response(200)

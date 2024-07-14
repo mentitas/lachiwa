@@ -3,6 +3,8 @@ from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.backends import default_backend
 from base64 import urlsafe_b64encode, urlsafe_b64decode
 
+### Este archivo define las funciones para encriptar y desencriptar
+
 def encrypt(message, public_key):
     enc_data = public_key.encrypt(
         message.encode('utf-8'),

@@ -8,6 +8,6 @@ docker run -p 8080:8080 lachiwa:latest
 
 Luego, desde otra terminal, se puede testear la aplicación asi:
 ```bash
-./lachiwa.py [-h] [-name NAME] [-redirect REDIRECT] {pdf,url,qr,exe} mail note
+python lachiwa.py [-h] [-name NAME] [-redirect REDIRECT] {pdf,url,qr,exe,ini} mail note
 
 ```
